@@ -258,7 +258,7 @@ function wifi_status()
 	return(i);
 }
 ```
-Program execution result
+Program execution result <br/>
 ![Image of Yaktocat]
 https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.11.52%20am.png
 Switch the work mode of the wireless memory device to the point-to-point mode. Switch to Adhoc mode<br/>
@@ -271,7 +271,7 @@ function wifi_switch_adhoc()
  	  alert("Fail to switch to 'Ad-hoc' mode!");
 }
 ```
-Program execution result
+Program execution result <br/>
 ![Image of Yaktocat]
 https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2011.18.20%20pm.png
 
@@ -288,7 +288,7 @@ function wifi_switch_infra()
  	  alert("Fail to switch to 'Infra' mode!");
 }
 ```
-Program execution result
+Program execution result <br/>
 ![Image of Yaktocat]
 https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.07.53%20am.png
 Power off the device
