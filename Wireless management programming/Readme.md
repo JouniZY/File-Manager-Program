@@ -10,7 +10,7 @@ After entering this URL in the browser. It will list down the information of all
 ![Image of Yaktocat]
 (https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2010.59.34%20pm.png)
 
-In the returned result of /svdo/WIFI{scan}, each line represents a detected wireles access point. ending with the symbol#.The information of each wireless access point is as follows:
+In the returned result of /svdo/WIFI{scan}, each line represents a detected wireles access point, ending with the symbol #.The information of each wireless access point is as follows:<br />
 `<SSID>:<the signal intensity>:<whether encrypted>:<wireless mode>`
 
 2. Get the current work status of the wireless memory device: 
