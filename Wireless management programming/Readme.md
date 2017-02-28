@@ -260,7 +260,7 @@ function wifi_status()
 ```
 Program execution result <br/>
 ![Image of Yaktocat]
-https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.11.52%20am.png
+(https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.11.52%20am.png)
 Switch the work mode of the wireless memory device to the point-to-point mode. Switch to Adhoc mode<br/>
 ``` javascript
 function wifi_switch_adhoc()
@@ -273,7 +273,7 @@ function wifi_switch_adhoc()
 ```
 Program execution result <br/>
 ![Image of Yaktocat]
-https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2011.18.20%20pm.png
+(https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2011.18.20%20pm.png)
 
 Switch the work mode of the wireless memory device to the Internet mode<br/>
 ``` javascript
@@ -290,7 +290,7 @@ function wifi_switch_infra()
 ```
 Program execution result <br/>
 ![Image of Yaktocat]
-https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.07.53%20am.png
+(https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.07.53%20am.png)
 Power off the device
 ```javascript
 function power_off()
