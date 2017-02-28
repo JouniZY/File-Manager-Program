@@ -1,0 +1,287 @@
+<html>
+<head>
+<title>CloudFTP WiFi Control</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<script type="text/javascript">
+
+var g_ap_info_ssid = new Array();
+var g_ap_info_signal = new Array();
+var g_ap_info_encrypt = new Array();
+var g_ap_info_mode = new Array();
+var g_ap_number;
+
+var g_client_ip = new Array();
+var g_client_number;
+var g_current_mode;
+var g_battery_status;
+var g_current_ssid;
+
+//Http Operating
+var g_svdo_request = new XMLHttpRequest();
+
+function HTTPsvdo(svdo_url)
+{
+ var url_svdo;
+ 
+ url_svdo = "/svdo/"+svdo_url;
+ g_svdo_request.open("GET",url_svdo,false);
+ g_svdo_request.setRequestHeader("Accept-Language", "en");
+ g_svdo_request.send(null);
+ 
+ if (g_svdo_request.status == 200) 
+ 	{
+   return g_svdo_request.responseText;
+	}
+ else 
+ 	{
+ 	 return null;
+  }
+}
+
+function lcd_msg(message)
+{
+ if( HTTPsvdo("Socket{text/plain,0.0.0.0,10000,LCDT15C"+message+"}")!='ok')
+ 	  alert("Fail to send message to LCD!");
+}
+
+function wifi_switch_adhoc()
+{
+ if( HTTPsvdo("WIFI{Adhoc}")=="ok\n")
+ 		alert("Switch to Ad-hoc mode successfully!");
+ else
+ 	  alert("Fail to switch to 'Ad-hoc' mode!");
+}
+
+function wifi_switch_infra()
+{
+ var result;
+ 
+ result=HTTPsvdo("WIFI{Infra}");
+ if( result=="ok\n")
+ 		alert("Switch to Infra mode successfully!");
+ else
+ 	  alert("Fail to switch to 'Infra' mode!");
+}
+
+function power_off()
+{
+ HTTPsvdo("EXIT{1}");
+ alert("'Power Off' command was send!");
+}
+
+function output_ap_info()
+{
+ var i;
+ 
+ document.write("Scan Result:");
+ document.write("<table border=\"1\"");
+ document.write("<tr >"); 
+ document.write("<th >"+"ESSID"+"</th>");
+ document.write("<th >"+"Quality"+"</th>");
+ document.write("<th >"+"Encrypt"+"</th>");  
+ document.write("<th >"+"Mode"+"</th>");  
+ document.write("</tr>"); 	 	
+ for ( i=0; i<g_ap_number; i++)
+ 		{
+ 		document.write("<tr >");
+  	document.write("<td >"+g_ap_info_ssid[i]+"</td>");
+  	document.write("<td >"+g_ap_info_signal[i]+"</td>");
+  	document.write("<td >"+g_ap_info_encrypt[i]+"</td>");  	
+  	document.write("<td >"+g_ap_info_mode[i]+"</td>"); 
+  	document.write("</tr>");
+		}
+ document.write("</table>");
+}
+
+function wifi_scan()
+{
+	var result;
+	var i;
+	var scan_len;
+	var scan_posi;
+	var scan_end;
+ 
+ //Clear all informations
+	g_ap_info_ssid.splice(1);
+	g_ap_info_signal.splice(1);
+	g_ap_info_encrypt.splice(1);
+	g_ap_info_mode.splice(1);
+	g_ap_number=0;
+ 
+ //Send command to CloudFTP
+ result=HTTPsvdo("WIFI{scan}");
+ if(result==null)
+ 		{
+		alert("Fail to scan APs!");
+		return(0);
+		}
+		
+ //4,Process items
+ scan_len=result.length;
+ scan_posi=0;
+ while(scan_posi<scan_len)
+		{
+		if(result.charAt(scan_posi)=='#')
+			{
+			break;
+			}
+		//Pickup SSID
+		scan_end = result.indexOf(":",scan_posi);
+		if(scan_end == -1)
+			break;
+		g_ap_info_ssid[g_ap_number] = result.slice(scan_posi,scan_end);
+		scan_posi = scan_end+1;
+		//Pickup Signal
+		scan_end = result.indexOf(":",scan_posi);
+		if(scan_end == -1)
+			break;
+		g_ap_info_signal[g_ap_number] = result.slice(scan_posi,scan_end);
+		scan_posi = scan_end+1;
+		//Pickup encrypt
+		scan_end = result.indexOf(":",scan_posi);
+		if(scan_end == -1)
+			break;
+		g_ap_info_encrypt[g_ap_number] = result.slice(scan_posi,scan_end);
+		scan_posi = scan_end+1;
+		//Pickup mode
+		scan_end = result.indexOf("\n",scan_posi);
+		if(scan_end == -1)
+			break;
+		g_ap_info_mode[g_ap_number] = result.slice(scan_posi,scan_end);
+		scan_posi = scan_end+1;
+		//Next item
+		g_ap_number++;
+		}
+		
+	//Check result
+	if(g_ap_number==0)
+		{
+		alert("Access Point not found!");
+		return(0);
+		}
+	return(g_ap_number);
+}
+
+function output_client()
+{
+ var i;
+ 
+ document.write("Clients IP Address:");
+ document.write("<table border=\"1\"");
+ document.write("<tr >"); 
+ document.write("<th >"+"No."+"</th>");
+ document.write("<th >"+"IP Address"+"</th>");
+ document.write("</tr>"); 	 	
+ for ( i=0; i<g_client_number; i++)
+ 		{
+ 		document.write("<tr >");
+  	document.write("<td >"+(i+1)+"</td>");
+  	document.write("<td >"+g_client_ip[i]+"</td>");
+  	document.write("</tr>");
+		}
+ document.write("</table>");
+}
+
+function wifi_status()
+{
+	var result;
+	var i;
+	var scan_len;
+	var scan_posi;
+	var scan_end;
+ 
+ //Clear all informations
+	g_client_ip.splice(1);
+	g_client_number=0;
+ 
+ //Send command to CloudFTP
+ result=HTTPsvdo("WIFI{status}");
+ if(result==null)
+ 		{
+		alert("Fail to obtian status!");
+		return(0);
+		}
+		
+ //4,Process items
+ scan_len=result.length;
+ scan_posi=0;
+ 
+ //Pickup Current Mode
+ scan_end = result.indexOf(":",scan_posi);
+ if(scan_end == -1)
+		return(0);
+ g_current_mode = result.slice(scan_posi,scan_end);
+ scan_posi = scan_end+1;
+
+ //Pickup Battery Status
+ scan_end = result.indexOf(":",scan_posi);
+ if(scan_end == -1)
+		return(0);
+ g_battery_status = result.slice(scan_posi,scan_end);
+ scan_posi = scan_end+1;
+
+ //Pickup Client Number
+ scan_end = result.indexOf(":",scan_posi);
+ if(scan_end == -1)
+		return(0);
+ g_client_number = result.slice(scan_posi,scan_end);
+ scan_posi = scan_end+1;
+
+ //Pickup Current SSID
+ scan_end = result.indexOf("\n",scan_posi);
+ if(scan_end == -1)
+		return(0);
+ g_current_ssid = result.slice(scan_posi,scan_end);
+ scan_posi = scan_end+1;
+ 
+ alert("Current SSID: "+g_current_ssid);
+ i=0;
+ while(scan_posi<scan_len)
+		{
+		if(result.charAt(scan_posi)=='#')
+			{
+			break;
+			}
+		//Pickup Client IP
+		scan_end = result.indexOf("\n",scan_posi);
+		if(scan_end == -1)
+			break;
+		g_client_ip[i] = result.slice(scan_posi,scan_end);
+		scan_posi = scan_end+1;
+		//Next item
+		i++;
+		}
+		
+	//Check result
+	if(i==0)
+		{
+		alert("Client not found!");
+		return(0);
+		}
+	return(i);
+}
+
+</script>
+</head>
+
+<body>
+	
+This is a WiFi Control demo program. 
+<form action="/svdo/WIFI{scan}" method="get">
+<input type="button" value="Scan Access Point ..." onclick="wifi_scan();output_ap_info();"/>
+</form>
+<form action="/svdo/WIFI{status}" method="get">
+<input type="button" value="List active clients" onclick="wifi_status();output_client();"/>
+</form>
+<form action="/svdo/WIFI{Adhoc}" method="get">
+<input type="button" value="Switch to Ad-hoc mode" onclick="wifi_switch_adhoc();"/>
+</form>
+<form action="/svdo/WIFI{Infra}" method="get">
+<input type="button" value="Switch to Infra mode" onclick="wifi_switch_infra();"/>
+</form>
+<form action="/svdo/EXIT{1}" method="get">
+<input type="button" value="Power Off CloudFTP" onclick="power_off();"/>
+</form>
+
+</body>
+</html>
