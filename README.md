@@ -2,6 +2,7 @@
 JavaScript software development for wireless memory device
 
 This basic principles are:
+
 1. The wireless memory device is taken as a wireless hotspot, so that the tablet PC can connect to this whireless hotspot.
 2. The wireless memory device has a built in WEB server.
 3. When accessing the WEB server of the wireless memory device will send the webpage and the JS programs to the WEB browser.
