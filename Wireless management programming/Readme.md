@@ -20,8 +20,8 @@ The current work status returned by the wireless memory device is shown below:
 (https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2011.14.53%20pm.png)
 
 The result of /svdo/WIFI{status} shows:<br />
-Line 1, <wireless mode>:<battery status>:<number of active users>:<SSID> <br />
-Line 2, <MAC address> <br />
+Line 1, < wireless mode>:< battery status>:< number of active users>:< SSID> <br />
+Line 2, <  MAC address> <br />
 Line 3, ending with the symbol # 
 
 3. Set the wireless memory device to the point-to-point mode or Internet mode:<br />
