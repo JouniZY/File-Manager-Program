@@ -70,22 +70,22 @@ g_mon[9]="Oct.";
 g_mon[10]="Nov.";
 g_mon[11]="Dec.";
 ```
-DateTime2Str(datetime): This function converts the file time to a format that is wanted.<br/>
+`<DateTime2Str(datetime)>`: This function converts the file time to a format that is wanted.<br/>
 For instance, it converts "2011 3 23 21 10 0" to "Mar.23,2011 21:10:00".<br/>
 
-Send the HTTP request to the wireless memory device and wait for the returned result: HTTPGet(svdo_url)<br/>
+Send the HTTP request to the wireless memory device and wait for the returned result: `<HTTPGet(svdo_url)>`<br/>
 
-Open and read folders/files information from the storage device: FSOpenDir()<br/>
+Open and read folders/files information from the storage device: `<FSOpenDir()>` <br/>
 
-Calculate the file number clicked by the user according to the coordinate value: CalculateClickedItem(touch_x, touch_y)<br/>
+Calculate the file number clicked by the user according to the coordinate value: `<CalculateClickedItem(touch_x, touch_y)>`<br/>
 
-Process the user clicks. If user clicks a folder, the function will enter the folder: ProcessClickedItem(item_id)<br/>
+Process the user clicks. If user clicks a folder, the function will enter the folder: `<ProcessClickedItem(item_id)>`<br/>
 
-Touch screen operation function: left_touchStart(event), left_touchEnd(event), left_touchMove(event).<br/>
+Touch screen operation function: `<left_touchStart(event)>`,`<left_touchEnd(event)>`,`<left_touchMove(event)>`.<br/>
 
-Redraw file list function: Draw_Panel().<br/>
+Redraw file list function: `<Draw_Panel()>`.<br/>
 
-Main function that is running while page loading: main().<br/>
+Main function that is running while page loading: `<main()>`.<br/>
 
 
 
