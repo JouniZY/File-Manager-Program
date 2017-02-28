@@ -7,9 +7,9 @@ HTTPsvdo(svdo_url):<br/>
 This function will convert the request sent to the device to an indentifiable HTTP URL and then send it to the wireless memory device. After that, the function will wait for the return of the device execution result, which is a text string.<br/>
 
 
-The URL requests related to the wireless function:
+The URL requests related to the wireless function:<br/>
 
-1. Get the detectable wireless access point information: 
+Get the detectable wireless access point information: 
 `/svdo/WIFI{scan}`
 
 After entering this URL in the browser. It will list down the information of all access points, as shown below:
@@ -19,7 +19,7 @@ After entering this URL in the browser. It will list down the information of all
 In the returned result of /svdo/WIFI{scan}, each line represents a detected wireles access point, ending with the symbol #.The information of each wireless access point is as follows:<br />
 `<SSID>:<the signal intensity>:<whether encrypted>:<wireless mode>`
 
-2. Get the current work status of the wireless memory device: 
+Get the current work status of the wireless memory device: <br/>
 `/svdo/WIFI{status}`<br />
 The current work status returned by the wireless memory device is shown below:
 ![Image of Yaktocat]
@@ -30,17 +30,17 @@ Line 1, < wireless mode>:< battery status>:< number of active users>:< SSID> <br
 Line 2, <  MAC address> <br />
 Line 3, ending with the symbol # 
 
-3. Set the wireless memory device to the point-to-point mode or Internet mode:<br />
+Set the wireless memory device to the point-to-point mode or Internet mode:<br />
 `/svdo/WIFI{Adhoc}` :set the device to the point-to-point mode <br />
 `/svdo/WIFI{status}` :set the device to the Internet mode <br/>
 The wireless device will return "ok" after the mode configuration is successful:
 ![Image of Yaktocat]
 (https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2011.18.20%20pm.png)
 
-4. Power off the wireless memory device: `/svdo/EXIT{1}`<br />
+Power off the wireless memory device: `/svdo/EXIT{1}`<br />
 
-5. Explanation of the example of the wireless programming interface:<br />
-5.1 Scan Access Point<br />
+Explanation of the example of the wireless programming interface:<br />
+Scan Access Point<br />
 ```javascript
 //Define an array to save the wireless sccess point information
 var g_ap_info_ssid = new Array();
@@ -151,7 +151,7 @@ Program execution result
 ![Image of Yaktocat]
 (https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.07.17%20am.png)
 
-5.2 Get the current work status of the wireless device
+Get the current work status of the wireless device<br/>
 ```javascript
 var g_client_ip = new Array();
 var g_client_number;
@@ -261,7 +261,7 @@ function wifi_status()
 Program execution result
 ![Image of Yaktocat]
 https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.11.52%20am.png
-5.3 Switch the work mode of the wireless memory device to the point-to-point mode. Switch to Adhoc mode
+Switch the work mode of the wireless memory device to the point-to-point mode. Switch to Adhoc mode<br/>
 ``` javascript
 function wifi_switch_adhoc()
 {
@@ -275,7 +275,7 @@ Program execution result
 ![Image of Yaktocat]
 https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-14%20at%2011.18.20%20pm.png
 
-5.4 Switch the work mode of the wireless memory device to the Internet mode
+Switch the work mode of the wireless memory device to the Internet mode<br/>
 ``` javascript
 function wifi_switch_infra()
 {
@@ -291,7 +291,7 @@ function wifi_switch_infra()
 Program execution result
 ![Image of Yaktocat]
 https://github.com/JouniZY/File-Manager-Program/blob/master/images/Screen%20Shot%202017-02-15%20at%2012.07.53%20am.png
-5.5 Power off the device
+Power off the device
 ```javascript
 function power_off()
 {
